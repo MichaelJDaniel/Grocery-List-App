@@ -1,28 +1,56 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import List from "./List";
 import './App.css';
+import ThingForm from "./ThingForm"
 
 class App extends Component {
+  state = {
+    things: [
+      { id: 1, name: "Milk", complete: true, },
+      { id: 2, name: "Cheese", complete:false, },
+      { id: 3, name: "Chicken", complete: false, }
+    ]
+   };
+
+   getUniqId = () => {
+     return Math.floor((1 + Math.random()) * 0x10000)
+     .toString(16)
+     .substring(1)
+   }
+   
+   addItem = (name) => {
+     const {things, } = this.state;
+     const thing = { name, id: this.getUniqId, complete: false, }
+     this.setState({ things: [thing, ...things] })
+   }
+
+   handleClick = (id) => {
+     const { things } = this.state
+     this.setState({
+       things: things.map( thing => {
+         if (thing.id === id) {
+           return {
+           ...thing,
+           complete: !thing.complete
+         }
+        }
+        return thing
+
+       })
+     })
+  }
+  
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <ThingForm addItem={this.addItem} />
+          <List name="Grocery List" items={this.state.things} thingClick={this.handleClick} />
       </div>
-    );
+      );
+
   }
+
 }
+     
 
 export default App;
