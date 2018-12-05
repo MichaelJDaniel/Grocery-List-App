@@ -1,7 +1,7 @@
 import React from "react";
 import Thing from "./Thing"
 
-const List = ({items, name}) => (
+const List = ({items, name, thingClick}) => (
   <div>
     <h2>{ name }</h2>
       <ul>

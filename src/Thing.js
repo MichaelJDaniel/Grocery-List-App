@@ -4,7 +4,7 @@ import React from "react"
 const Thing = ({ name, id, complete, thingClick }) => (
   <li 
   onClick={() => thingClick(id)}
-  style={complete ? {...styles.todo, ...styles.complete} : styles.todo } 
+  style={complete ? {...styles.thing, ...styles.complete} : styles.thing } 
   >
     { name }
   </li>
